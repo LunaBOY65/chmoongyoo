@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Name - Personal Portfolio</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="main-header">
+        <nav>
+            <a href="#home" class="active">Home</a>
+            <a href="#about">About</a>
+            <a href="#projects">Skills</a>
+            <a href="#blog">Blog</a>
+            <a href="#contact">Contact</a>
+            <!-- THEME TOGGLE BUTTON -->
+            <button id="theme-toggle" aria-label="Toggle dark and light mode">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.836 17.836a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.591 1.59a.75.75 0 010 1.061zM12 18.75a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25a.75.75 0 01.75-.75zM5.106 17.836a.75.75 0 010-1.06l1.591-1.59a.75.75 0 011.06 1.06l-1.59 1.59a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.164 6.164a.75.75 0 011.06 0l1.59 1.591a.75.75 0 11-1.06 1.06L6.164 7.224a.75.75 0 010-1.06z"></path></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 003.463-.69a.75.75 0 01.981.981A10.503 10.503 0 0118 18a10.5 10.5 0 01-10.5-10.5c0-1.563.34-3.04.934-4.385a.75.75 0 01.818.162z" clip-rule="evenodd"></path></svg>
+            </button>
+        </nav>
+    </header>
+
+    <main class="portfolio-container">
+        <section id="home">
+            <img src="https://placehold.co/120x120/BB86FC/FFFFFF?text=YN" alt="Profile Picture" class="profile-pic" onerror="this.onerror=null;this.src='https://placehold.co/120x120/BB86FC/FFFFFF?text=YN';">
+            <h1>Your Name</h1>
+            <p class="subtitle">A passionate student exploring the world of technology and design.</p>
+        </section>
+
+        <div class="content-wrapper">
+            <section id="about" class="card">
+                <h2>About Me</h2>
+                <p>I am a [Your Major] student at [Your University] with a keen interest in [Your Interests, e.g., software development, UI/UX design, data science]. I'm passionate about building things for the web and always eager to learn new technologies. My goal is to leverage my skills to create meaningful and user-friendly digital experiences.</p>
+
+                <div class="timeline">
+                    <h3>Experience</h3>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Internship at Company X</h4>
+                            <p><em>Present (2024 - 2025)</em></p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <h4>Freelance Web Developer</h4>
+                            <p><em>2023 - 2024</em></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="education">
+                    <h3>Education</h3>
+                    <div class="education-item">
+                        <p><strong>Bachelor of Science in [Your Major]</strong> - [Your University]</p>
+                        <span>2022 - 2026</span>
+                    </div>
+                     <div class="education-item">
+                        <p><strong>High School Diploma</strong> - [Your High School]</p>
+                        <span>2019 - 2022</span>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="card">
+                <div class="card-header">
+                    <h2>Skills & Projects</h2>
+                     <a href="#" target="_blank" rel="noopener noreferrer" class="icon-button" aria-label="View all projects">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </a>
+                </div>
+                <div class="skills-grid">
+                    <span class="skill-badge">JavaScript</span>
+                    <span class="skill-badge">Python</span>
+                    <span class="skill-badge">React</span>
+                    <span class="skill-badge">Figma</span>
+                    <span class="skill-badge">Node.js</span>
+                    <span class="skill-badge">Node.js</span>
+                    <span class="skill-badge">Node.js</span>
+                    <span class="skill-badge">Node.js</span>
+                    <span class="skill-badge">Node.js</span>
+                </div>
+                <div class="project-grid">
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="project-card">
+                        <h4>Project One</h4>
+                        <p>A brief description of your amazing project. Click to see more.</p>
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="project-card">
+                        <h4>Project Two</h4>
+                        <p>A brief description of your amazing project. Click to see more.</p>
+                    </a>
+                </div>
+            </section>
+
+            <div class="card-row">
+                <section id="blog" class="card-small">
+                    <div class="card-header">
+                        <h2>Blog</h2>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="icon-button" aria-label="View all blog posts">
+                           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </a>
+                    </div>
+                     <ul class="link-list">
+                        <li><a href="#">My First Post on Medium &rarr;</a></li>
+                        <li><a href="#">Tech Trends in 2025 &rarr;</a></li>
+                    </ul>
+                </section>
+
+                <section id="certificate" class="card-small">
+                    <div class="card-header">
+                        <h2>Certificate</h2>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="icon-button" aria-label="View all certificates">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7 17L17 7M7 7H17V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </a>
+                    </div>
+                     <ul class="link-list">
+                        <li><a href="#">Google UX Design Certificate &rarr;</a></li>
+                        <li><a href="#">FreeCodeCamp Responsive Web Design &rarr;</a></li>
+                    </ul>
+                </section>
+            </div>
+
+            <section id="contact" class="card">
+                <h2>Get In Touch</h2>
+                <p>Feel free to reach out for collaborations or just a friendly hello!</p>
+                <div class="social-icons">
+                    <a href="mailto:your.email@example.com" class="social-icon-link" aria-label="Email">
+                        <img src="https://placehold.co/64x64/FFFFFF/000000?text=M" alt="Email" onerror="this.onerror=null;this.src='https://placehold.co/64x64/FFFFFF/000000?text=M';">
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="LinkedIn">
+                         <img src="https://placehold.co/64x64/FFFFFF/000000?text=in" alt="LinkedIn" onerror="this.onerror=null;this.src='https://placehold.co/64x64/FFFFFF/000000?text=in';">
+                    </a>
+                    <a href="#" target="_blank" rel="noopener noreferrer" class="social-icon-link" aria-label="GitHub">
+                        <img src="https://placehold.co/64x64/FFFFFF/000000?text=G" alt="GitHub" onerror="this.onerror=null;this.src='https://placehold.co/64x64/FFFFFF/000000?text=G';">
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <p class="quote">"Be not afraid of growing slowly, be afraid only of standing still."</p>
+    </footer>
+
+    <!-- Link to the external JavaScript file -->
+    <script src="script.js"></script>
+
+</body>
+</html>
