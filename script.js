@@ -29,6 +29,22 @@ document.addEventListener('DOMContentLoaded', function() {
             // localStorage.removeItem('theme'); 
         }
     });
+    
+    // --- HOBBIES TOGGLE LOGIC (NEW) ---
+    const hobbiesToggleBtn = document.getElementById('hobbies-toggle');
+    if (hobbiesToggleBtn) {
+        hobbiesToggleBtn.addEventListener('click', () => {
+            const hiddenHobbies = document.querySelectorAll('.hobby-hidden');
+            const isShowingMore = hobbiesToggleBtn.textContent === 'Show Less';
+
+            hiddenHobbies.forEach(hobby => {
+                hobby.style.display = isShowingMore ? 'none' : 'list-item';
+            });
+
+            hobbiesToggleBtn.textContent = isShowingMore ? 'Show More' : 'Show Less';
+        });
+    }
+
 
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.main-header nav a');
