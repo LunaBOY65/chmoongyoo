@@ -1,36 +1,105 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // --- THEME TOGGLE LOGIC ---
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
-    // Function to apply the saved theme on page load
+    // --- NEW: PARTICLE LOADER FUNCTION ---
+    /**
+     * Loads particles.js with a configuration based on the current theme.
+     * @param {boolean} isLight - True if light mode is active, false otherwise.
+     */
+    function loadParticles(isLight) {
+        const particleColor = isLight ? '#333333' : '#ffffff'; // Dark particles on light bg, white on dark
+        const lineColor = isLight ? '#555555' : '#ffffff';     // Same logic for lines
+
+        particlesJS("particles-js", {
+            "particles": {
+                "number": {
+                    "value": 60,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": particleColor // DYNAMIC COLOR
+                },
+                "shape": {
+                    "type": "circle",
+                    "stroke": { "width": 0, "color": "#000000" },
+                    "polygon": { "nb_sides": 5 }
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": true,
+                    "anim": { "enable": true, "speed": 0.5, "opacity_min": 0.1, "sync": false }
+                },
+                "size": {
+                    "value": 3,
+                    "random": true,
+                    "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false }
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": lineColor, // DYNAMIC COLOR
+                    "opacity": 0.2,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 2,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false,
+                    "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 }
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": { "enable": true, "mode": "grab" },
+                    "onclick": { "enable": false, "mode": "push" },
+                    "resize": true
+                },
+                "modes": {
+                    "grab": { "distance": 140, "line_linked": { "opacity": 0.7 } },
+                    "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 },
+                    "repulse": { "distance": 200, "duration": 0.4 },
+                    "push": { "particles_nb": 4 },
+                    "remove": { "particles_nb": 2 }
+                }
+            },
+            "retina_detect": true
+        });
+    }
+
+    // --- THEME TOGGLE LOGIC (UPDATED) ---
     const applySavedTheme = () => {
         const savedTheme = localStorage.getItem('theme');
-        // If there's a saved theme and it's 'light', add the light-mode class
         if (savedTheme === 'light') {
             body.classList.add('light-mode');
         }
+        // Load particles with the correct theme color on initial page load
+        loadParticles(body.classList.contains('light-mode'));
     };
 
-    // Apply theme as soon as the DOM is loaded
     applySavedTheme();
 
-    // Event listener for the toggle button
     themeToggle.addEventListener('click', () => {
-        // Toggle the 'light-mode' class on the body
         body.classList.toggle('light-mode');
 
-        // Save the current theme preference to localStorage
         if (body.classList.contains('light-mode')) {
             localStorage.setItem('theme', 'light');
         } else {
             localStorage.setItem('theme', 'dark');
-            // Or remove the item to default to dark
-            // localStorage.removeItem('theme'); 
         }
+        // Reload particles with the new theme color after toggling
+        loadParticles(body.classList.contains('light-mode'));
     });
     
-    // --- HOBBIES TOGGLE LOGIC (NEW) ---
+    // --- HOBBIES TOGGLE LOGIC ---
     const hobbiesToggleBtn = document.getElementById('hobbies-toggle');
     if (hobbiesToggleBtn) {
         hobbiesToggleBtn.addEventListener('click', () => {
@@ -53,35 +122,24 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            // Ensure it's an internal anchor link
             if (href.startsWith('#')) {
-                e.preventDefault(); // Prevent the default jump
-
+                e.preventDefault();
                 const targetId = href.substring(1);
                 const targetElement = document.getElementById(targetId);
-
                 if (targetElement) {
-                    const headerOffset = 100; // Offset to account for the sticky header
+                    const headerOffset = 100;
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-                    // Call the custom smooth scroll function
                     smoothScrollTo(offsetPosition, 1000);
                 }
             }
         });
     });
 
-    /**
-     * Smoothly scrolls the page to a target position.
-     * @param {number} targetPosition - The final vertical position to scroll to.
-     * @param {number} duration - The duration of the scroll animation in milliseconds.
-     */
     function smoothScrollTo(targetPosition, duration) {
         const startPosition = window.pageYOffset;
         const distance = targetPosition - startPosition;
         let startTime = null;
-
         function animation(currentTime) {
             if (startTime === null) startTime = currentTime;
             const timeElapsed = currentTime - startTime;
@@ -89,21 +147,12 @@ document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo(0, run);
             if (timeElapsed < duration) requestAnimationFrame(animation);
         }
-
-        /**
-         * Easing function for a smooth acceleration and deceleration.
-         * @param {number} t - current time
-         * @param {number} b - start value
-         * @param {number} c - change in value
-         * @param {number} d - duration
-         */
         function easeInOutQuad(t, b, c, d) {
             t /= d / 2;
             if (t < 1) return c / 2 * t * t + b;
             t--;
             return -c / 2 * (t * (t - 2) - 1) + b;
         };
-
         requestAnimationFrame(animation);
     }
 
@@ -113,19 +162,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     const observerOptions = {
         root: null,
-        rootMargin: '0px', // Adjust as needed
-        threshold: 0.4      // Trigger when 40% of the section is visible
+        rootMargin: '0px',
+        threshold: 0.4
     };
-
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.getAttribute('id');
-                // Remove 'active' from all links
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                });
-                // Add 'active' to the corresponding link
+                navLinks.forEach(link => link.classList.remove('active'));
                 const activeLink = document.querySelector(`.main-header nav a[href="#${id}"]`);
                 if (activeLink) {
                     activeLink.classList.add('active');
@@ -134,12 +178,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }, observerOptions);
 
-    // Observe each section
-    sections.forEach(section => {
-        observer.observe(section);
-    });
+    sections.forEach(section => observer.observe(section));
 
-    // Set initial active link on page load based on hash
     if (window.location.hash) {
         const activeLink = document.querySelector(`.main-header nav a[href="${window.location.hash}"]`);
         if (activeLink) activeLink.classList.add('active');
