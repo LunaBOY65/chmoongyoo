@@ -118,44 +118,36 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.main-header nav a');
 
-    // --- SMOOTH SCROLLING LOGIC ---
+    // --- SMOOTH SCROLLING LOGIC (REVISED FOR NATIVE BROWSER BEHAVIOR) ---
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
+            // Ensure it's an anchor link on the current page
             if (href.startsWith('#')) {
-                e.preventDefault();
+                e.preventDefault(); // Prevent the default jump
                 const targetId = href.substring(1);
                 const targetElement = document.getElementById(targetId);
+
                 if (targetElement) {
-                    const headerOffset = 100;
+                    // ✨ CHANGE: Updated breakpoint to 1024px to include iPads
+                    const headerOffset = window.innerWidth <= 1024 ? 80 : 100;
+                    
+                    // Calculate the position of the target element relative to the document
                     const elementPosition = targetElement.getBoundingClientRect().top;
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                    smoothScrollTo(offsetPosition, 1000);
+
+                    // ✨ CHANGE: Updated breakpoint to 1024px to include iPads
+                    const scrollBehavior = window.innerWidth <= 1024 ? 'auto' : 'smooth';
+
+                    // Use the browser's built-in scrolling with dynamic behavior
+                    window.scrollTo({
+                        top: offsetPosition,
+                        behavior: scrollBehavior
+                    });
                 }
             }
         });
     });
-
-    function smoothScrollTo(targetPosition, duration) {
-        const startPosition = window.pageYOffset;
-        const distance = targetPosition - startPosition;
-        let startTime = null;
-        function animation(currentTime) {
-            if (startTime === null) startTime = currentTime;
-            const timeElapsed = currentTime - startTime;
-            const run = easeInOutQuad(timeElapsed, startPosition, distance, duration);
-            window.scrollTo(0, run);
-            if (timeElapsed < duration) requestAnimationFrame(animation);
-        }
-        function easeInOutQuad(t, b, c, d) {
-            t /= d / 2;
-            if (t < 1) return c / 2 * t * t + b;
-            t--;
-            return -c / 2 * (t * (t - 2) - 1) + b;
-        };
-        requestAnimationFrame(animation);
-    }
-
 
     // --- NAVIGATION SCROLLSPY LOGIC ---
     if (sections.length === 0 || navLinks.length === 0) return;

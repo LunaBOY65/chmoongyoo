@@ -404,7 +404,7 @@ body.light-mode #home .subtitle.location-badge {
 }
 
 /* RESPONSIVE DESIGN */
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     body { padding: 1rem; }
     .main-header nav a { padding: 8px 12px; font-size: 13px; }
     .portfolio-container { padding: 20px; border-radius: 24px; }
