@@ -137,12 +137,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
                     // ✨ CHANGE: Updated breakpoint to 1024px to include iPads
-                    const scrollBehavior = window.innerWidth <= 1024 ? 'auto' : 'smooth';
+                    //const scrollBehavior = window.innerWidth <= 1024 ? 'auto' : 'smooth';
 
                     // Use the browser's built-in scrolling with dynamic behavior
                     window.scrollTo({
                         top: offsetPosition,
-                        behavior: scrollBehavior
+                        behavior: 'auto'  
                     });
                 }
             }
@@ -180,3 +180,87 @@ document.addEventListener('DOMContentLoaded', function() {
         if (homeLink) homeLink.classList.add('active');
     }
 });
+
+
+// --- UPDATED: DURATION CALCULATION FUNCTION ---
+/**
+ * Calculates the duration between two dates from a string and updates the element.
+ * Handles multiple date formats:
+ * - "Month Year - Month Year" (e.g., Feb 2025 - Apr 2025)
+ * - "Month - Month Year" (e.g., Feb - Apr 2025)
+ * - "Month Year - Present" (e.g., Jun 2025 - Present)
+ * @param {string} elementId - The ID of the element containing the date string.
+ */
+function calculateAndDisplayDuration(elementId) {
+    const element = document.getElementById(elementId);
+    if (!element) return;
+
+    const originalText = element.textContent;
+    const dateString = originalText.split('·')[1]?.trim();
+    if (!dateString) return;
+
+    const monthMap = {
+        Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
+        Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
+    };
+    
+    let startDate, endDate;
+
+    // --- NEW: Logic to handle different date formats ---
+    if (dateString.toLowerCase().includes('present')) {
+        // Case 1: Handles "Month Year - Present"
+        const [startStr] = dateString.split(' - ');
+        const startParts = startStr.split(' ');
+        const startMonth = monthMap[startParts[0]];
+        const startYear = parseInt(startParts[1], 10);
+        startDate = new Date(startYear, startMonth);
+        endDate = new Date(); // Use current date
+    } else {
+        // Case 2: Handles "Month - Month Year" and "Month Year - Month Year"
+        const [startStr, endStr] = dateString.split(' - ');
+        const endParts = endStr.split(' ');
+
+        const endMonth = monthMap[endParts[0]];
+        const year = parseInt(endParts[endParts.length - 1], 10);
+        
+        // Check if start string includes a year or not
+        const startParts = startStr.split(' ');
+        const startMonth = monthMap[startParts[0]];
+        const startYear = startParts.length > 1 ? parseInt(startParts[1], 10) : year;
+
+        startDate = new Date(startYear, startMonth);
+        endDate = new Date(year, endMonth);
+    }
+
+    if (isNaN(startDate) || isNaN(endDate)) return; // Exit if dates are invalid
+
+    // --- Calculation logic (remains the same) ---
+    const yearDiff = endDate.getFullYear() - startDate.getFullYear();
+    const monthDiff = endDate.getMonth() - startDate.getMonth();
+    let totalMonths = (yearDiff * 12) + monthDiff + 1;
+
+    if (totalMonths <= 0) totalMonths = 1;
+
+    let durationText = '';
+    const years = Math.floor(totalMonths / 12);
+    const months = totalMonths % 12;
+
+    if (years > 0) {
+        durationText += `${years} yr `;
+    }
+    if (months > 0) {
+        durationText += `${months} mos`;
+    }
+    
+    if (durationText.trim() === '') {
+        durationText = totalMonths > 0 ? `${totalMonths} mos` : '';
+    }
+
+    if (durationText) {
+        element.innerHTML = `${originalText} &middot; ${durationText.trim()}`;
+    }
+}
+
+// --- เรียกใช้ฟังก์ชันสำหรับแต่ละรายการ ---
+calculateAndDisplayDuration('job-1'); // ตัวอย่างสำหรับ "Jun 2025 - Present"
+calculateAndDisplayDuration('job-2'); // สำหรับ "Feb - Apr 2025"
