@@ -402,45 +402,6 @@ body.light-mode #home .subtitle.location-badge {
   color: var(--secondary-text);
 }
 
-/* --- Education --- */
-.education {
-  margin-top: 2rem;
-}
-.education h3 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  color: var(--primary-text);
-}
-.education-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1.5rem;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--border-color);
-}
-.education-item:last-child {
-  border-bottom: none;
-}
-.education-details p {
-  margin: 0;
-  line-height: 1.5;
-}
-.university-name {
-  font-size: 0.9rem;
-  color: var(--secondary-text);
-}
-.education-item span {
-  font-size: 0.9rem;
-  color: var(--secondary-text);
-  white-space: nowrap;
-}
-.education-item p {
-  flex-grow: 1;
-  flex-shrink: 1;
-  min-width: 0;
-}
-
 /* --- Skills & Projects --- */
 /* CONSOLIDATED: Combined all `.skills-grid` styles into one block */
 .skills-grid {
